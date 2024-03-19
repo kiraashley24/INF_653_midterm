@@ -21,7 +21,6 @@
 
     // Set ID to update
     $author->id = $data->id;
-
     $author->author = $data->author;
 
     // Update author

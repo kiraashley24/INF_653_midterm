@@ -84,33 +84,47 @@ class Author {
 
     // Update Author
     public function update() {
-      // Create Query
-      $query = 'UPDATE ' .
-        $this->table . '
-      SET
-        author = :author
-      WHERE
-        id = :id';
-
-      // Prepare Statement
+      // Check if author ID is provided
+      if (!isset($this->id)) {
+          echo json_encode(array('message' => 'Missing author ID'));
+          return false;
+      }
+  
+      // Check if author name is provided
+      if (!isset($this->author)) {
+          echo json_encode(array('message' => 'Missing author name'));
+          return false;
+      }
+  
+      // Check if author with the given ID exists
+      $check_query = 'SELECT id FROM ' . $this->table . ' WHERE id = :id LIMIT 1';
+      $check_stmt = $this->conn->prepare($check_query);
+      $check_stmt->bindParam(':id', $this->id);
+      $check_stmt->execute();
+  
+      if ($check_stmt->rowCount() == 0) {
+          // author with the provided ID does not exist
+          echo json_encode(array('message' => 'Author with id ' . $this->id . ' not found'));
+          return false;
+      }
+  
+      // author exists, proceed with the update
+      $query = 'UPDATE ' . $this->table . '
+                  SET author = :author
+                  WHERE id = :id';
+  
       $stmt = $this->conn->prepare($query);
-
-      // Clean data
       $this->author = htmlspecialchars(strip_tags($this->author));
       $this->id = htmlspecialchars(strip_tags($this->id));
-
-      // Bind data
       $stmt->bindParam(':author', $this->author);
       $stmt->bindParam(':id', $this->id);
-
-      // Execute query
-      if($stmt->execute()) {
-        return true;
+  
+      if ($stmt->execute()) {
+          return true;
       }
-
-      // Print error if something goes wrong
+  
       printf("Error: %s.\n", $stmt->error);
-
+  
       return false;
     }
 
