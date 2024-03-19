@@ -19,6 +19,12 @@ $category = new Category($db);
 // Get raw posted data
 $data = json_decode(file_get_contents("php://input"));
 
+// Check if category ID is provided
+if (!isset($data->id)) {
+    echo json_encode(array('message' => 'Missing category ID'));
+    exit;
+}
+
 // Set ID to DELETE
 $category->id = $data->id;
 

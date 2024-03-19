@@ -26,7 +26,7 @@
     // Update author
     if($author->update()) {
     echo json_encode(
-        array('message' => 'Author Updated')
+        array('message' => 'Updated Author')
     );
     } else {
     echo json_encode(

@@ -92,7 +92,7 @@ class Author {
   
       // Check if author name is provided
       if (!isset($this->author)) {
-          echo json_encode(array('message' => 'Missing author name'));
+          echo json_encode(array('message' => 'Missing Required Parameters'));
           return false;
       }
   
@@ -120,7 +120,8 @@ class Author {
       $stmt->bindParam(':id', $this->id);
   
       if ($stmt->execute()) {
-          return true;
+        echo json_encode(array('message' => 'Author with id ' . $this->id . ' updated'));
+        return true;
       }
   
       printf("Error: %s.\n", $stmt->error);

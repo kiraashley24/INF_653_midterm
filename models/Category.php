@@ -106,6 +106,7 @@ class Category {
     $stmt->bindParam(':id', $this->id);
 
     if ($stmt->execute()) {
+        echo json_encode(array('message' => 'Category with id ' . $this->id . ' updated'));
         return true;
     }
 
