@@ -143,7 +143,7 @@ class Author {
 
       if ($check_stmt->rowCount() == 0) {
           // author with the provided ID does not exist
-          echo json_encode(array('message' => 'Author with id ' . $this->id . ' not found'));
+          echo json_encode(array('message' => 'No Quotes Found'));
           return false;
       }
       $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
@@ -153,7 +153,8 @@ class Author {
       $stmt->bindParam(':id', $this->id);
 
       if ($stmt->execute()) {
-          return true;
+        echo json_encode(array('message' => 'Author with id ' . $this->id . ' deleted'));  
+        return true;
       }
 
       printf("Error: %s.\n", $stmt->error);

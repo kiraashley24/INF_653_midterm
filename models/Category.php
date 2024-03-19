@@ -118,7 +118,6 @@ class Category {
     public function delete() {
         // Check if category ID is provided
         if (!isset($this->id)) {
-            echo json_encode(array('message' => 'Missing category ID'));
             return false;
         }
         // Check if category with the given ID exists
@@ -129,7 +128,7 @@ class Category {
 
         if ($check_stmt->rowCount() == 0) {
             // Category with the provided ID does not exist
-            echo json_encode(array('message' => 'Category with id ' . $this->id . ' not found'));
+            echo json_encode(array('message' => 'No Quotes Found'));
             return false;
         }
         $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
@@ -139,6 +138,7 @@ class Category {
         $stmt->bindParam(':id', $this->id);
 
         if ($stmt->execute()) {
+            echo json_encode(array('message' => 'Category with id ' . $this->id . ' deleted'));
             return true;
         }
 

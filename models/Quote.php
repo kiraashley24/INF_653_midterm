@@ -76,28 +76,66 @@ class Quote {
     }
 
     public function create() {
-        $query = 'INSERT INTO ' . $this->table . '
-                    SET quote = :quote, author_id = :author_id, category_id = :category_id';
-
+        // Check if author_id and category_id exist
+        if (!$this->authorExists($this->author_id)) {
+            echo json_encode(array('message' => 'author_id Not Found'));
+            return false;
+        }
+    
+        if (!$this->categoryExists($this->category_id)) {
+            echo json_encode(array('message' => 'category_id Not Found'));
+            return false;
+        }
+    
+        // Check if quote is empty
+        if (empty($this->quote) || empty($this->author_id) || empty($this->category_id)) {
+            echo json_encode(array('message' => 'Missing Required Parameters'));
+            return false;
+        }
+    
+        // Proceed with inserting the quote
+        $query = 'INSERT INTO ' . $this->table . ' 
+            (quote, author_id, category_id) VALUES (:quote, :author_id, :category_id)';
+    
         $stmt = $this->conn->prepare($query);
-
+    
         $this->quote = htmlspecialchars(strip_tags($this->quote));
         $this->author_id = htmlspecialchars(strip_tags($this->author_id)); 
         $this->category_id = htmlspecialchars(strip_tags($this->category_id)); 
-
+    
         $stmt->bindParam(':quote', $this->quote);
         $stmt->bindParam(':author_id', $this->author_id);
         $stmt->bindParam(':category_id', $this->category_id);
-
+    
         if ($stmt->execute()) {
             return true;
         }
-
+    
         printf("Error: %s.\n", $stmt->error);
-
+    
         return false;
     }
-
+    
+    private function authorExists($author_id) {
+        // Check if author exists in the database
+        $query = 'SELECT id FROM authors WHERE id = :author_id';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':author_id', $author_id);
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
+    }
+    
+    private function categoryExists($category_id) {
+        // Check if category exists in the database
+        $query = 'SELECT id FROM categories WHERE id = :category_id';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':category_id', $category_id);
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
+    }
+    
+    
+    
     public function update() {
         $query = 'UPDATE ' . $this->table . '
                     SET quote = :quote, author_id = :author_id, category_id = :category_id
@@ -125,15 +163,30 @@ class Quote {
     }
 
     public function delete() {
+        // Check if quote ID is provided
+        if (!isset($this->id)) {
+            echo json_encode(array('message' => 'Missing quote ID'));
+            return false;
+        }
+        // Check if quote with the given ID exists
+        $check_query = 'SELECT id FROM ' . $this->table . ' WHERE id = :id LIMIT 1';
+        $check_stmt = $this->conn->prepare($check_query);
+        $check_stmt->bindParam(':id', $this->id);
+        $check_stmt->execute();
+
+        if ($check_stmt->rowCount() == 0) {
+            // quote with the provided ID does not exist
+            echo json_encode(array('message' => 'No Quotes Found'));
+            return false;
+        }
         $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
 
         $stmt = $this->conn->prepare($query);
-
         $this->id = htmlspecialchars(strip_tags($this->id));
-
         $stmt->bindParam(':id', $this->id);
 
         if ($stmt->execute()) {
+            echo json_encode(array('message' => 'Quote with id ' . $this->id . ' deleted'));
             return true;
         }
 
