@@ -95,13 +95,13 @@
             break;
         
         case 'POST':
-            // Your POST logic here
+            include_once 'create.php';
             break;
         case 'PUT':
-            // Your PUT logic here
+            include_once 'update.php';
             break;
         case 'DELETE':
-            // Your DELETE logic here
+            include_once 'delete.php';
             break;
         default:
             // Method not allowed
