@@ -130,26 +130,34 @@ class Author {
 
     // Delete Author
     public function delete() {
-      // Create query
+      // Check if author ID is provided
+      if (!isset($this->id)) {
+          echo json_encode(array('message' => 'Missing author ID'));
+          return false;
+      }
+      // Check if author with the given ID exists
+      $check_query = 'SELECT id FROM ' . $this->table . ' WHERE id = :id LIMIT 1';
+      $check_stmt = $this->conn->prepare($check_query);
+      $check_stmt->bindParam(':id', $this->id);
+      $check_stmt->execute();
+
+      if ($check_stmt->rowCount() == 0) {
+          // author with the provided ID does not exist
+          echo json_encode(array('message' => 'Author with id ' . $this->id . ' not found'));
+          return false;
+      }
       $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
 
-      // Prepare Statement
       $stmt = $this->conn->prepare($query);
-
-      // Clean data
       $this->id = htmlspecialchars(strip_tags($this->id));
-
-      // Bind Data
       $stmt->bindParam(':id', $this->id);
 
-      // Execute query
-      if($stmt->execute()) {
-        return true;
+      if ($stmt->execute()) {
+          return true;
       }
 
-      // Print error if something goes wrong
       printf("Error: %s.\n", $stmt->error);
 
       return false;
-    }
+  }
 }
