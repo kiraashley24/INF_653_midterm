@@ -24,7 +24,6 @@ class Category {
         return $stmt;
     }    
     
-
     // Get Single Category
     public function read_single() {
         // Create query
@@ -49,14 +48,13 @@ class Category {
         $this->category = $row['category'];
     }
 
-    
-
     // Create Category
     public function create() {
         $query = 'INSERT INTO ' .
             $this->table . '
-            SET
-            category = :category';
+            (category)
+            VALUES
+            (:category)';
 
         $stmt = $this->conn->prepare($query);
         $this->category = htmlspecialchars(strip_tags($this->category));
@@ -70,6 +68,9 @@ class Category {
 
         return false;
     }
+
+
+
 
     // Update Category
     public function update() {
