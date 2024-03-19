@@ -69,32 +69,53 @@ class Category {
         return false;
     }
 
-
-
-
-    // Update Category
     public function update() {
-        $query = 'UPDATE ' .
-            $this->table . '
-            SET
-            category = :category
-            WHERE
-                id = :id';
-
+        // Check if category ID is provided
+        if (!isset($this->id)) {
+            echo json_encode(array('message' => 'Missing category ID'));
+            return false;
+        }
+    
+        // Check if category name is provided
+        if (!isset($this->category)) {
+            echo json_encode(array('message' => 'Missing category name'));
+            return false;
+        }
+    
+        // Check if category with the given ID exists
+        $check_query = 'SELECT id FROM ' . $this->table . ' WHERE id = :id LIMIT 1';
+        $check_stmt = $this->conn->prepare($check_query);
+        $check_stmt->bindParam(':id', $this->id);
+        $check_stmt->execute();
+    
+        if ($check_stmt->rowCount() == 0) {
+            // Category with the provided ID does not exist
+            echo json_encode(array('message' => 'Category with id ' . $this->id . ' not found'));
+            return false;
+        }
+    
+        // Category exists, proceed with the update
+        $query = 'UPDATE ' . $this->table . '
+                    SET category = :category
+                    WHERE id = :id';
+    
         $stmt = $this->conn->prepare($query);
         $this->category = htmlspecialchars(strip_tags($this->category));
         $this->id = htmlspecialchars(strip_tags($this->id));
-        $stmt->bindParam('category', $this->category);
+        $stmt->bindParam(':category', $this->category);
         $stmt->bindParam(':id', $this->id);
-
+    
         if ($stmt->execute()) {
             return true;
         }
-
+    
         printf("Error: %s.\n", $stmt->error);
-
+    
         return false;
     }
+    
+    
+
 
     // Delete Category
     public function delete() {
