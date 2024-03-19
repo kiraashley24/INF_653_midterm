@@ -2,7 +2,7 @@
     class Database {
         // DB Parameters
         private $host;
-        private $port;
+        //private $db_port;
         private $db_name;
         private $username;
         private $password;
@@ -13,7 +13,7 @@
             $this->password = getenv('PASSWORD');
             $this->db_name = getenv('DBNAME');
             $this->host = getenv('HOST');
-            $this->port = getenv('PORT');
+            //$this->db_port = getenv('DBPORT');
         }
         
         //DB Connect
@@ -24,7 +24,7 @@
                 //connection already exists, return it
                 return $this->conn;
             } else {
-                $dsn = "pgsql:host={$this->host};port={$this->port};dbname={$this->db_name}";
+                $dsn = "pgsql:host={$this->host};dbname={$this->db_name}";
             }
             
     
