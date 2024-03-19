@@ -63,27 +63,20 @@ class Author {
 
     // Create Author
     public function create() {
-      // Create Query
       $query = 'INSERT INTO ' .
-        $this->table . '
-      SET
-        author = :author';
+          $this->table . '
+          (author)
+          VALUES
+          (:author)';
 
-      // Prepare Statement
       $stmt = $this->conn->prepare($query);
-
-      // Clean data
       $this->author = htmlspecialchars(strip_tags($this->author));
-
-      // Bind data
       $stmt->bindParam(':author', $this->author);
 
-      // Execute query
-      if($stmt->execute()) {
-        return true;
+      if ($stmt->execute()) {
+          return true;
       }
 
-      // Print error if something goes wrong
       printf("Error: %s.\n", $stmt->error);
 
       return false;
