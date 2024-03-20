@@ -30,7 +30,7 @@
             echo json_encode($result);
         } else {
             echo json_encode(
-                array('message' => 'Author Not Created')
+                array('message' => 'Category Not Created')
             );
         }
     } else {

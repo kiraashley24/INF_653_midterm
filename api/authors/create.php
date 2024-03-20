@@ -21,14 +21,13 @@ $data = json_decode(file_get_contents("php://input"));
 
 // Check if author is provided
 if (!empty($data->author)) {
-    // Set author property
-    $author->author = $data->author;
+    // Set category property
+    $category->author = $data->author;
+    $result = $author->create();
 
     // Create author
-    if ($author->create()) {
-        echo json_encode(
-            array('message' => 'Author Created')
-        );
+    if (isset($result['id']) && isset($result['author'])) {
+        echo json_encode($result);
     } else {
         echo json_encode(
             array('message' => 'Author Not Created')

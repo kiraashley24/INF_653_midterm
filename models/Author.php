@@ -75,8 +75,12 @@ class Author {
       $stmt->bindParam(':author', $this->author);
 
       if ($stmt->execute()) {
-          return true;
-      }
+        $result = array(
+            'id' => $this->conn->lastInsertId(),
+            'category' => $this->author
+        );
+        return $result;
+    }
 
       printf("Error: %s.\n", $stmt->error);
 
