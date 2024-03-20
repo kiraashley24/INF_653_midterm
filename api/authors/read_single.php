@@ -25,7 +25,7 @@
         // Create array
         $author_arr = array(
             'id' => $author->id,
-            'category' => $author->author
+            'author' => $author->author
         );
 
         // Make JSON
