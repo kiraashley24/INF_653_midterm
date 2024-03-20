@@ -22,7 +22,7 @@
 
     // Check if any quotes
     if ($num > 0) {
-        // Quote array
+        // Quote arrayy
         $quote_arr = array();
 
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {

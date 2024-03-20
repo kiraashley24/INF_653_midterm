@@ -35,7 +35,7 @@ class Quote {
     
         $stmt = $this->conn->prepare($query);
     
-        // Bind parameters if they are provided
+        // Bind parameters if they are providedd
         if ($author_id !== null) {
             $stmt->bindParam(':author_id', $author_id);
         }
