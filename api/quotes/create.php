@@ -20,6 +20,7 @@
     $data = json_decode(file_get_contents("php://input"));
 
     // Check if required fields are provided
+    //all pass then this
     if (!empty($data->quote) && !empty($data->author_id) && !empty($data->category_id)) {
         // Set quote property
         $quote->quote = $data->quote;
@@ -36,6 +37,16 @@
                 array('message' => 'Quote Not Created')
             );
         }
+      //if author_id is empty  
+    } elseif (empty($data->author_id)) {
+        echo json_encode(
+            array('message' => 'author_id Not Found')
+        );
+      //if category_id is empty
+    } elseif (empty($data->category_id)) {
+        echo json_encode(
+            array('message' => 'category_id Not Found')
+        );
     } else {
         echo json_encode(
             array('message' => 'Missing Required Parameters')
