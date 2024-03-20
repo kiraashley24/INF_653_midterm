@@ -22,7 +22,7 @@ $data = json_decode(file_get_contents("php://input"));
 // Check if author is provided
 if (!empty($data->author)) {
     // Set category property
-    $category->author = $data->author;
+    $author->author = $data->author;
     $result = $author->create();
 
     // Create author
