@@ -33,7 +33,7 @@
             $authors_arr[] = $author_item;
         }
 
-        // Echo the whole array of Authors
+        // Echo the whole array of Authorss
         echo json_encode($authors_arr);
     } else {
         // No Authors
