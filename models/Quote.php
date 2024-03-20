@@ -18,8 +18,8 @@ class Quote {
 
     public function read($author_id = null, $category_id = null) {
         $query = 'SELECT q.id, q.quote, 
-                  a.id as author_id, a.author as author_id,
-                  c.id as category_id, c.category as category_id
+                  a.id as author_id, a.author as author_name,
+                  c.id as category_id, c.category as category_name
                   FROM quotes q
                   LEFT JOIN authors a ON q.author_id = a.id
                   LEFT JOIN categories c ON q.category_id = c.id
