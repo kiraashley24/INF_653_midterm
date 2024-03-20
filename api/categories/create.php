@@ -19,20 +19,17 @@ $category = new Category($db);
 // Get raw posted data
 $data = json_decode(file_get_contents("php://input"));
 
-// Check if category is provided
-if (!empty($data->category)) {
-    // Set category property
-    $category->category = $data->category;
 
-    // Create category
-    $response = $category->create();
-    if ($response) {
-        echo json_encode($response);
-    } else {
-        echo json_encode(
-            array('message' => 'Category Not Created')
+$category->category = $data->category;
+
+// Create category
+    
+if ($category->create()) {
+    echo json_encode($response);
+} else {
+    echo json_encode(
+        array('message' => 'Missing Required Parameters')
         );
-    }
-
 }
+
 ?>
