@@ -23,7 +23,7 @@ $data = json_decode(file_get_contents("php://input"));
 $category->category = $data->category;
 
 // Create category
-$result - $category->create();   
+$result = $category->create();   
 if ($result) {
     echo json_encode($result);
 } else {
