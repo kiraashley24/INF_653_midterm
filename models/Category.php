@@ -68,19 +68,13 @@ class Category {
         $stmt->bindParam(':category', $this->category);
     
         if ($stmt->execute()) {
-            $response = array(
-                'id' => $this->conn->lastInsertId(),
-                'category' => $this->category
-            );
-            return $response;
+            return true;
         }
     
         printf("Error: %s.\n", $stmt->error);
     
         return false;
     }
-    
-
 
     public function update() {
     // Check if category ID is provided

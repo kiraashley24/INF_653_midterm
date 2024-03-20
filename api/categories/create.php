@@ -25,11 +25,15 @@ $category->category = $data->category;
 // Create category
     
 if ($category->create()) {
-    echo json_encode($response);
+    echo json_encode(
+        array(
+        'id' => $this->conn->lastInsertId(),
+        'category' => $this->category)
+    );
 } else {
     echo json_encode(
         array('message' => 'Missing Required Parameters')
-        );
+    );
 }
 
 ?>
