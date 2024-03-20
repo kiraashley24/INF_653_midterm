@@ -25,18 +25,14 @@ if (!empty($data->category)) {
     $category->category = $data->category;
 
     // Create category
-    if ($category->create()) {
-        echo json_encode(
-            array('message' => 'Category Created')
-        );
+    $response = $category->create();
+    if ($response) {
+        echo json_encode($response);
     } else {
         echo json_encode(
             array('message' => 'Category Not Created')
         );
     }
-} else {
-    echo json_encode(
-        array('message' => 'Missing Required Parameters')
-    );
+
 }
 ?>

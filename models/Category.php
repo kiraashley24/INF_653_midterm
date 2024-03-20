@@ -62,24 +62,24 @@ class Category {
             (category)
             VALUES
             (:category)';
-
+    
         $stmt = $this->conn->prepare($query);
         $this->category = htmlspecialchars(strip_tags($this->category));
         $stmt->bindParam(':category', $this->category);
-
+    
         if ($stmt->execute()) {
-            $newCategoryId = $this->conn->lastInsertId();
-            $categoryData = array(
-                'id' => $newCategoryId,
+            $response = array(
+                'id' => $this->conn->lastInsertId(),
                 'category' => $this->category
             );
-            return $categoryData;
+            return $response;
         }
-
+    
         printf("Error: %s.\n", $stmt->error);
-
+    
         return false;
     }
+    
 
 
     public function update() {
