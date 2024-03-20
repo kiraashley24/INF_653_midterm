@@ -33,25 +33,34 @@ class Author {
     public function read_single() {
       // Create query
       $query = 'SELECT id, author
-                FROM ' . $this->table . '
-                WHERE id = ?
-                LIMIT 1 OFFSET 0';
-
+                  FROM ' . $this->table . '
+                  WHERE id = ?
+                  LIMIT 1 OFFSET 0';
+  
       // Prepare statement
       $stmt = $this->conn->prepare($query);
-
+  
       // Bind ID
       $stmt->bindParam(1, $this->id);
-
+  
       // Execute query
       $stmt->execute();
-
+  
+      // Fetch the row
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-      // Set properties
-      $this->id = $row['id'];
-      $this->author = $row['author'];
-    }
+  
+      // Check if row is valid
+      if ($row) {
+          // Set properties
+          $this->id = $row['id'];
+          $this->author = $row['author'];
+      } else {
+          // Author not found
+          $this->id = null;
+          $this->author = null;
+      }
+  }
+  
 
     // Create Author
     public function create() {
