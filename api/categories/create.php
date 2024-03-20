@@ -23,8 +23,8 @@ $data = json_decode(file_get_contents("php://input"));
 $category->category = $data->category;
 
 // Create category
-    
-if ($category->create()) {
+$result - $category->create();   
+if ($result) {
     echo json_encode($result);
 } else {
     echo json_encode(
