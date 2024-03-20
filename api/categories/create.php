@@ -23,9 +23,12 @@ $data = json_decode(file_get_contents("php://input"));
 $category->category = $data->category;
 
 // Create category
-$result = $category->create();   
-if ($result) {
-    echo json_encode($result);
+if ($category->create()) {
+    $cat_arr = array(
+        'id' => $category->id,
+        'category' => $category->category
+    );
+    echo json_encode($cat_arr);
 } else {
     echo json_encode(
         array('message' => 'Missing Required Parameters')
