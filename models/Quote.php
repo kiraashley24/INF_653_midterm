@@ -18,8 +18,8 @@ class Quote {
 
     public function read($author_id = null, $category_id = null) {
         $query = 'SELECT q.id, q.quote, 
-                  a.id as author_id, a.author as author_name,
-                  c.id as category_id, c.category as category_name
+                  a.author as author_name,
+                  c.category as category_name
                   FROM quotes q
                   LEFT JOIN authors a ON q.author_id = a.id
                   LEFT JOIN categories c ON q.category_id = c.id
@@ -45,8 +45,20 @@ class Quote {
     
         $stmt->execute();
     
-        return $stmt;
+        $quotes = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $quote_item = array(
+                'id' => $row['id'],
+                'quote' => $row['quote'],
+                'author' => $row['author_name'],
+                'category' => $row['category_name']
+            );
+            $quotes[] = $quote_item;
+        }
+    
+        return $quotes;
     }
+    
 
     public function read_single() {
         $query = 'SELECT q.id, q.quote, q.author_id, q.category_id,

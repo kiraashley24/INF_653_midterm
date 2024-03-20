@@ -17,22 +17,17 @@
     // Quote read query
     $result = $quote->read();
 
-    // Get row count
-    $num = $result->rowCount();
-
     // Check if any quotes
-    if ($num > 0) {
+    if (!empty($result)) {
         // Quote array
         $quote_arr = array();
 
-        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            extract($row);
-
+        foreach ($result as $row) {
             $quote_item = array(
-                'id' => $id,
-                'quote' => $quote,
-                'author' => $author_name,
-                'category' => $category_name
+                'id' => $row['id'],
+                'quote' => $row['quote'],
+                'author' => $row['author'],
+                'category' => $row['category']
             );
 
             // Push to "data"
@@ -47,3 +42,4 @@
             array('message' => 'No Quotes Found')
         );
     }
+?>
