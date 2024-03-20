@@ -32,9 +32,9 @@
                 'id' => $id,
                 'quote' => $quote,
                 'author_id' => $author_id,
-                'author' => $author_name,
+                'author' => $author,
                 'category_id' => $category_id,
-                'category' => $category_name
+                'category' => $category
             );
 
             // Push to "data"
