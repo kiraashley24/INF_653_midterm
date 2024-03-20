@@ -107,6 +107,12 @@ class Quote {
         $stmt->bindParam(':category_id', $this->category_id);
 
         if ($stmt->execute()) {
+            $result = array(
+                'id' => $this->conn->lastInsertId(),
+                'quote' => $this->quote,
+                'author_id' => $this->author_id,
+                'category_id' => $this->category_id
+            );
             return true;
         }
 

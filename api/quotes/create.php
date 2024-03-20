@@ -21,15 +21,16 @@
 
     // Check if required fields are provided
     if (!empty($data->quote) && !empty($data->author_id) && !empty($data->category_id)) {
+        // Set quote property
         $quote->quote = $data->quote;
         $quote->author_id = $data->author_id;
         $quote->category_id = $data->category_id;
 
+        $result = $quote->create();
+
         // Create quote
-        if ($quote->create()) {
-            echo json_encode(
-                array('message' => 'Quote Created')
-            );
+        if (isset($result['id']) && isset($result['quote']) && isset($result['category_id']) && isset($result['author_id'])) {
+            echo json_encode($result);
         } else {
             echo json_encode(
                 array('message' => 'Quote Not Created')
@@ -40,4 +41,5 @@
             array('message' => 'Missing Required Parameters')
         );
     }
+
 ?>
