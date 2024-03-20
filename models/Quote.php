@@ -7,8 +7,6 @@ class Quote {
     public $quote;
     public $author_id; 
     public $category_id; 
-    public $author_name;
-    public $category_name;
     public $author;
     public $category;
 
@@ -68,8 +66,8 @@ class Quote {
             $this->quote = $row['quote'];
             $this->author_id = $row['author_id'];
             $this->category_id = $row['category_id'];
-            $this->author_name = $row['author'];
-            $this->category_name = $row['category'];
+            $this->author = $row['author'];
+            $this->category = $row['category'];
         } else {
             echo json_encode(array('message' => 'No Quotes Found'));
         }

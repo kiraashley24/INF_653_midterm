@@ -34,8 +34,8 @@
                     $quote_item = array(
                         'id' => $quote->id,
                         'quote' => $quote->quote,
-                        'author_name' => $quote->author_name,
-                        'category_name' => $quote->category_name
+                        'author' => $quote->author,
+                        'category' => $quote->category
                     );
                     echo json_encode($quote_item);
                 }
@@ -54,8 +54,8 @@
                         $quote_item = array(
                             'id' => $id,
                             'quote' => $quote,
-                            'author_name' => $author_name,
-                            'category_name' => $category_name
+                            'author' => $author,
+                            'category' => $category
                         );
                         array_push($quotes_arr, $quote_item);
                     }
@@ -79,8 +79,8 @@
                         $quote_item = array(
                             'id' => $id,
                             'quote' => $quote,
-                            'author_name' => $author_name,
-                            'category_name' => $category_name
+                            'author' => $author,
+                            'category' => $category
                         );
                         array_push($quotes_arr, $quote_item);
                     }
