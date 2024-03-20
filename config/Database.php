@@ -24,7 +24,7 @@
                 //connection already exists, return it
                 return $this->conn;
             } else {
-                $dsn = "pgsql:host={$this->host};port={$this->dbport}dbname={$this->dbname}";
+                $dsn = "pgsql:host={$this->host};port={$this->dbport};dbname={$this->dbname}";
             }
             
     
