@@ -50,7 +50,7 @@ class Quote {
 
     public function read_single() {
         $query = 'SELECT q.id, q.quote, q.author_id, q.category_id,
-                        a.author as author_name, c.category as category_name
+                        a.author as author, c.category as category
                         FROM ' . $this->table . ' q
                         LEFT JOIN authors a ON q.author_id = a.id
                         LEFT JOIN categories c ON q.category_id = c.id
@@ -68,8 +68,8 @@ class Quote {
             $this->quote = $row['quote'];
             $this->author_id = $row['author_id'];
             $this->category_id = $row['category_id'];
-            $this->author_name = $row['author_name'];
-            $this->category_name = $row['category_name'];
+            $this->author_name = $row['author'];
+            $this->category_name = $row['category'];
         } else {
             echo json_encode(array('message' => 'No Quotes Found'));
         }
