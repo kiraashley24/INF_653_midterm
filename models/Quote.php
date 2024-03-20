@@ -113,7 +113,7 @@ class Quote {
                 'author_id' => $this->author_id,
                 'category_id' => $this->category_id
             );
-            return true;
+            return $result;
         }
 
         printf("Error: %s.\n", $stmt->error);

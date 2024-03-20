@@ -29,7 +29,7 @@
         $result = $quote->create();
 
         // Create quote
-        if (isset($result['id']) && isset($result['quote']) && isset($result['category_id']) && isset($result['author_id'])) {
+        if (isset($result['id']) && isset($result['quote']) && isset($result['author_id']) && isset($result['category_id'])) {
             echo json_encode($result);
         } else {
             echo json_encode(
