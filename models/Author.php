@@ -77,7 +77,7 @@ class Author {
       if ($stmt->execute()) {
         $result = array(
             'id' => $this->conn->lastInsertId(),
-            'category' => $this->author
+            'author' => $this->author
         );
         return $result;
     }
