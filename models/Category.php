@@ -69,13 +69,18 @@ class Category {
 
         if ($stmt->execute()) {
             $newCategoryId = $this->conn->lastInsertId();
-            return json_encode(array('id' => $newCategoryId, 'category' => $this->category));
+            $categoryData = array(
+                'id' => $newCategoryId,
+                'category' => $this->category
+            );
+            return $categoryData;
         }
 
         printf("Error: %s.\n", $stmt->error);
 
         return false;
     }
+
 
     public function update() {
     // Check if category ID is provided
