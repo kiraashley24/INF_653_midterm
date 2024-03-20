@@ -32,6 +32,5 @@
         echo json_encode($category_arr);
     } else {
         // No category found
-        http_response_code(404);
         echo json_encode(array('message' => 'category_id Not Found'));
     }
