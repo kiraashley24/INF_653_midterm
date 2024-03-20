@@ -68,6 +68,9 @@ class Category {
         $stmt->bindParam(':category', $this->category);
     
         if ($stmt->execute()) {
+            array(
+                'id' => $this->conn->lastInsertId(),
+                'category' => $this->category);
             return true;
         }
     
