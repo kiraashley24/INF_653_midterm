@@ -38,12 +38,12 @@
             );
         }
       //if author_id is empty  
-    } elseif (empty($data->author_id)) {
+    } elseif (!($data->author_id)) {
         echo json_encode(
             array('message' => 'author_id Not Found')
         );
       //if category_id is empty
-    } elseif (empty($data->category_id)) {
+    } elseif (!($data->category_id)) {
         echo json_encode(
             array('message' => 'category_id Not Found')
         );
