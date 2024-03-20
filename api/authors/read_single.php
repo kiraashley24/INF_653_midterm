@@ -32,6 +32,5 @@
         echo json_encode($author_arr);
     } else {
         // No author found
-        http_response_code(404);
         echo json_encode(array('message' => 'author_id Not Found'));
     }
