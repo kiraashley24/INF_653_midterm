@@ -55,8 +55,12 @@ class Category {
         }
     }
 
-    // Create Category
     public function create() {
+        // Check if category is provided
+        if (empty($this->category)) {
+            return array('message' => 'Missing Required Parameters');
+        }
+    
         $query = 'INSERT INTO ' .
             $this->table . '
             (category)
@@ -68,13 +72,18 @@ class Category {
         $stmt->bindParam(':category', $this->category);
     
         if ($stmt->execute()) {
-            return true;
+            $result = array(
+                'id' => $this->conn->lastInsertId(),
+                'category' => $this->category
+            );
+            return $result;
         }
     
         printf("Error: %s.\n", $stmt->error);
     
         return false;
     }
+    
 
     public function update() {
     // Check if category ID is provided
