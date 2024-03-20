@@ -68,7 +68,8 @@ class Category {
         $stmt->bindParam(':category', $this->category);
 
         if ($stmt->execute()) {
-            return true;
+            $newCategoryId = $this->conn->lastInsertId();
+            return json_encode(array('id' => $newCategoryId, 'category' => $this->category));
         }
 
         printf("Error: %s.\n", $stmt->error);
