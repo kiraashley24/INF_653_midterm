@@ -32,13 +32,10 @@ class Author {
     // Get Single Author
     public function read_single() {
       // Create query
-      $query = 'SELECT
-          id,
-          author
-        FROM
-          ' . $this->table . '
-      WHERE id = ?
-      LIMIT 1 OFFSET 0';
+      $query = 'SELECT id, author
+                FROM ' . $this->table . '
+                WHERE id = ?
+                LIMIT 1 OFFSET 0';
 
       // Prepare statement
       $stmt = $this->conn->prepare($query);
