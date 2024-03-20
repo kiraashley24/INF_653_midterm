@@ -43,9 +43,16 @@ class Category {
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Set properties
-        $this->id = $row['id'];
-        $this->category = $row['category'];
+        // Check if row is valid
+        if ($row) {
+            // Set properties
+            $this->id = $row['id'];
+            $this->category = $row['category'];
+        } else {
+            // Category not found
+            $this->id = null;
+            $this->category = null;
+        }
     }
 
     // Create Category
