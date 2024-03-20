@@ -20,6 +20,7 @@
 
     // Check if any authors
     if($num > 0) {
+        $authors_arr = array();
         while($row = $result->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
 
@@ -28,8 +29,10 @@
                 'author' => $author
             );
 
+            $authors_arr[] = $author_item;
+
             // Echo each author item
-            echo json_encode($author_item);
+            echo json_encode($authors_arr);
         }
     } else {
         // No Authors
