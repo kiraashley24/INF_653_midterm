@@ -14,38 +14,21 @@
     // Instantiate quote object
     $quote = new Quote($db);
 
-    // Quote read query
-    $result = $quote->read();
+    // Get author_id and category_id if provided
+    $author_id = isset($_GET['author_id']) ? $_GET['author_id'] : null;
+    $category_id = isset($_GET['category_id']) ? $_GET['category_id'] : null;
 
-    // Get row count
-    $num = $result->rowCount();
+    // Quote read query
+    $result = $quote->read($author_id, $category_id);
 
     // Check if any quotes
-    if ($num > 0) {
-        // Quote array
-        $quote_arr = array();
-
-        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            extract($row);
-
-            $quote_item = array(
-                'id' => $id,
-                'quote' => $quote,
-                'author_id' => $author_id,
-                'author' => $author_name,
-                'category_id' => $category_id,
-                'category' => $category_name
-            );
-
-            // Push to "data"
-            array_push($quote_arr, $quote_item);
-        }
-
+    if (count($result) > 0) {
         // Turn to JSON & output
-        echo json_encode($quote_arr);
+        echo json_encode($result);
     } else {
         // No Quotes
         echo json_encode(
             array('message' => 'No Quotes Found')
         );
     }
+?>
