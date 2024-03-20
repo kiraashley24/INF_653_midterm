@@ -22,7 +22,7 @@
     $result = $quote->read($author_id, $category_id);
 
     // Check if any quotes
-    if (count($result) > 0) {
+    if (!empty($result)) {
         // Turn to JSON & output
         echo json_encode($result);
     } else {
@@ -31,4 +31,4 @@
             array('message' => 'No Quotes Found')
         );
     }
-?>
+    ?>
