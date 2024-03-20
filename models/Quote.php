@@ -45,26 +45,8 @@ class Quote {
     
         $stmt->execute();
     
-        $quotes = array();
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $quote_item = array(
-                'id' => $row['id'],
-                'quote' => $row['quote'],
-                'author' => array(
-                    'id' => $row['author_id'],
-                    'name' => $row['author_name']
-                ),
-                'category' => array(
-                    'id' => $row['category_id'],
-                    'name' => $row['category_name']
-                )
-            );
-            $quotes[] = $quote_item;
-        }
-    
-        return $quotes;
+        return $stmt;
     }
-    
 
     public function read_single() {
         $query = 'SELECT q.id, q.quote, q.author_id, q.category_id,
