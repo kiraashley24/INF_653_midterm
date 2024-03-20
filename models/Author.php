@@ -13,17 +13,12 @@ class Author {
     public function __construct($db) {
       $this->conn = $db;
     }
-
     // Get authors
     public function read() {
       // Create query
-      $query = 'SELECT
-        id,
-        author
-      FROM
-        ' . $this->table . '
-      ORDER BY
-        id DESC';
+      $query = 'SELECT id, author
+                FROM ' . $this->table . '
+                ORDER BY id ASC';
 
       // Prepare statement
       $stmt = $this->conn->prepare($query);
