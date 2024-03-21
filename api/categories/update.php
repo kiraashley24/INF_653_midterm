@@ -34,4 +34,3 @@ if ($result) {
 }
 
 ?>
-$result = $category->update();
