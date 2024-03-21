@@ -21,14 +21,20 @@
 
     // Set ID to delete
     $author->id = $data->id;
-
-    // Delete author
-    if($author->delete()) {
-    echo json_encode(
-        array('message' => 'Author Deleted')
-    );
+    if (!empty($data->author)) {
+        
+        // Delete author
+        $result = $author->delete();
+        if($result) {
+            echo json_encode($result);
+        } else {
+        echo json_encode(
+            array('message' => 'Uh Oh')
+        );
+        }
     } else {
-    echo json_encode(
-        array('message' => 'Missing Required Parameters')
-    );
+        echo json_encode(
+            array('message' => 'Missing Required Parameters')
+        );
     }
+?>
