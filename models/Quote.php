@@ -77,12 +77,12 @@ class Quote {
     public function create() {
         // Check if author_id and category_id exist
         if (!$this->authorExists($this->author_id)) {
-            echo json_encode(array('message' => 'author_id Not Found'));
+            echo json_encode(array('message' => 'Missing Required Parameters'));
             return false;
         }
 
         if (!$this->categoryExists($this->category_id)) {
-            echo json_encode(array('message' => 'category_id Not Found'));
+            echo json_encode(array('message' => 'Missing Required Parameters'));
             return false;
         }
 
