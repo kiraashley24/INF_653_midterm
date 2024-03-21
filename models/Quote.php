@@ -176,7 +176,13 @@ class Quote {
         $stmt->bindParam(':id', $this->id);
 
         if ($stmt->execute()) {
-            return true;
+            $result = array(
+                'id' => $this->id,
+                'quote' => $this->quote,
+                'author_id' => $this->author_id,
+                'category_id' => $this->category_id
+            );
+            return $result;
         }
 
         printf("Error: %s.\n", $stmt->error);

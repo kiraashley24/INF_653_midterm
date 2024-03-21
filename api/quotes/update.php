@@ -37,9 +37,11 @@ $quote->author_id = $data->author_id;
 $quote->category_id = $data->category_id;
 
 // Update quote
-if ($quote->update()) {
-    echo json_encode(array('message' => 'Quote Updated'));
+$result = $quote->update();
+if ($result) {
+    echo json_encode($result);
 } else {
-    echo json_encode(array('message' => 'Quote Not Updated'));
+    echo json_encode(array('message' => 'No Quotes Found'));
 }
 
+?>
