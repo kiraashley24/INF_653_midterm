@@ -20,21 +20,21 @@
     $data = json_decode(file_get_contents("php://input"));
 
     // Set ID to delete
-    $author->id = $data->id;
-    if (!empty($data->author)) {
-        
+    $author->id = isset($data->id) ? $data->id : null;
+    if (!empty($author->id)) {
         // Delete author
         $result = $author->delete();
-        if($result) {
+        if ($result) {
             echo json_encode($result);
         } else {
-        echo json_encode(
-            array('message' => 'Uh Oh')
-        );
+            echo json_encode(
+                array('message' => 'Uh Oh')
+            );
         }
     } else {
         echo json_encode(
             array('message' => 'Missing Required Parameters')
         );
     }
+
 ?>
