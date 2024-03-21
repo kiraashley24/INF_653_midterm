@@ -83,7 +83,6 @@ class Category {
     
         return false;
     }
-    
 
     public function update() {
     // Check if category ID is provided
