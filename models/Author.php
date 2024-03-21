@@ -163,8 +163,7 @@ class Author {
 
       if ($stmt->execute()) {
         $result = array(
-            'id' => $this->id,
-            'author' => $this->author
+            'id' => $this->id
         );
         return $result;
     }
