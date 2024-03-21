@@ -24,11 +24,14 @@ $category->id = $data->id;
 $category->category = $data->category;
 
 // Update category
-if ($category->update($data->category)) {
+$result = $category->update();
+if ($result) {
     echo json_encode($result);
 } else {
     echo json_encode(
         array('message' => 'Category Not Updated')
     );
 }
+
 ?>
+$result = $category->update();
