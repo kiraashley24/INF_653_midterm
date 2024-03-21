@@ -155,7 +155,7 @@ class Quote {
 
         // Check if required fields are provided
         if (empty($this->quote) || empty($this->author_id) || empty($this->category_id)) {
-            echo json_encode(array('message' => 'Missing Required Parameters'));
+            echo json_encode(array('message' => 'No Quotes Found'));
             return false;
         }
 
