@@ -199,7 +199,7 @@ class Quote {
 
         if ($check_stmt->rowCount() == 0) {
             // quote with the provided ID does not exist
-            echo json_encode(array('message' => 'No Quotes Found'));
+            //echo json_encode(array('message' => 'No Quotes Found'));
             return false;
         }
         $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
@@ -209,10 +209,9 @@ class Quote {
         $stmt->bindParam(':id', $this->id);
 
         if ($stmt->execute()) {
-            $result = array(
-                'id' => $this->id
-            );
-            return $result;
+            //$result = array('id' => $this->id);
+            //return $result;
+            return true;
         }
 
         printf("Error: %s.\n", $stmt->error);
