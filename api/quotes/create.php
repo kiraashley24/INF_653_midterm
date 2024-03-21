@@ -40,14 +40,14 @@
         // Check if author_id is empty  
         if (empty($data->author_id)) {
             echo json_encode(
-                array('message' => 'author_id Not Found')
+                array('message' => 'Missing Required Parameters')
             );
         }
 
         // Check if category_id is empty
         if (empty($data->category_id)) {
             echo json_encode(
-                array('message' => 'category_id Not Found')
+                array('message' => 'Missing Required Parameters')
             );
         }
 
