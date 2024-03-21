@@ -20,41 +20,44 @@
     $data = json_decode(file_get_contents("php://input"));
 
     // Check if required fields are provided
-if (!empty($data->quote) && !empty($data->author_id) && !empty($data->category_id)) {
-    // Set quote property
-    $quote->quote = $data->quote;
-    $quote->author_id = $data->author_id;
-    $quote->category_id = $data->category_id;
+    if (!empty($data->quote) && !empty($data->author_id) && !empty($data->category_id)) {
+        // Set quote property
+        $quote->quote = $data->quote;
+        $quote->author_id = $data->author_id;
+        $quote->category_id = $data->category_id;
 
-    $result = $quote->create();
+        $result = $quote->create();
 
-    // Create quote
-    if (isset($result['id']) && isset($result['quote']) && isset($result['author_id']) && isset($result['category_id'])) {
-        echo json_encode($result);
+        // Create quote
+        if (isset($result['id']) && isset($result['quote']) && isset($result['author_id']) && isset($result['category_id'])) {
+            echo json_encode($result);
+        } else {
+            echo json_encode(
+                array('message' => 'author_id Not Found')
+            );
+        }
     } else {
-        echo json_encode(
-            array('message' => 'Quote Not Created')
-        );
-    }
-} else {
-    // Check if any required fields are missing
-    $missingFields = [];
-    if (empty($data->quote)) {
-        $missingFields[] = 'quote';
-    }
-    if (empty($data->author_id)) {
-        $missingFields[] = 'author_id';
-    }
-    if (empty($data->category_id)) {
-        $missingFields[] = 'category_id';
-    }
+        // Check if author_id is empty  
+        if (empty($data->author_id)) {
+            echo json_encode(
+                array('message' => 'Missing Required Parameters')
+            );
+        }
 
-    // Return missing fields message
-    echo json_encode(
-        array('message' => 'Missing Required Parameters: ' . implode(', ', $missingFields))
-    );
-}
+        // Check if category_id is empty
+        if (empty($data->category_id)) {
+            echo json_encode(
+                array('message' => 'Missing Required Parameters')
+            );
+        }
 
+        // Check if any other required fields are missing
+        if (empty($data->quote)) {
+            echo json_encode(
+                array('message' => 'Missing Required Parameters')
+            );
+        }
+    }
 
 
 ?>
