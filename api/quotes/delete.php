@@ -28,7 +28,7 @@ if (!empty($quote->id)) {
         echo json_encode($result);
     } else {
         echo json_encode(
-            array('message' => 'Uh Oh')
+            array('message' => 'No Quotes Found')
         );
     }
 } else {
