@@ -21,15 +21,21 @@
 
     // Set ID to update
     $author->id = $data->id;
-    $author->author = $data->author;
 
-    // Update author
-    if($author->update()) {
-    echo json_encode(
-        array('message' => 'Updated Author')
-    );
+    if (!empty($data->author)) {
+        $author->author = $data->author;
+
+        // Update author
+        $result = $author->update();
+        if ($result) {
+            echo json_encode($result);
+        } else {
+            echo json_encode(
+                array('message' => 'author Not Updated')
+            );
+        }
     } else {
-    echo json_encode(
-        array('message' => 'Author Not Updated')
-    );
+        echo json_encode(
+            array('message' => 'Missing Required Parameters')
+        );
     }
