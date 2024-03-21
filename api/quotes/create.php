@@ -54,7 +54,7 @@
         // Check if any other required fields are missing
         if (empty($data->quote)) {
             echo json_encode(
-                array('message' => 'Missing Required Parameters: quote')
+                array('message' => 'Missing Required Parameters')
             );
         }
     }
