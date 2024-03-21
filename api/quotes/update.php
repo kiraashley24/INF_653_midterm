@@ -31,17 +31,30 @@ $quote = new Quote($db);
 // Set ID to update
 $quote->id = $data->id;
 
-// Set quote data
-$quote->quote = $data->quote;
-$quote->author_id = $data->author_id;
-$quote->category_id = $data->category_id;
 
-// Update quote
-$result = $quote->update();
-if ($result) {
-    echo json_encode($result);
+// Set ID to update
+$quote->id = $data->id;
+
+if (!empty($data->quote)) {
+    
+    // Set quote data
+    $quote->quote = $data->quote;
+    $quote->author_id = $data->author_id;
+    $quote->category_id = $data->category_id;
+
+    // Update quote
+    $result = $quote->update();
+    if ($result) {
+        echo json_encode($result);
+    } else {
+        echo json_encode(
+            array('message' => 'No Quotes Found')
+        );
+    }
 } else {
-    echo json_encode(array('message' => 'No Quotes Found'));
+    echo json_encode(
+        array('message' => 'Missing Required Parameters')
+    );
 }
 
 ?>
