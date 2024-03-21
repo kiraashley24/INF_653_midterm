@@ -157,8 +157,10 @@ class Category {
         $stmt->bindParam(':id', $this->id);
 
         if ($stmt->execute()) {
-            echo json_encode(array('message' => 'Category with id ' . $this->id . ' deleted'));
-            return true;
+            $result = array(
+                'id' => $this->id
+            );
+            return $result;
         }
 
         printf("Error: %s.\n", $stmt->error);
