@@ -20,15 +20,19 @@ $quote = new Quote($db);
 $data = json_decode(file_get_contents("php://input"));
 
 // Set ID to delete
-$quote->id = $data->id;
-
-// Delete quote
-if ($quote->delete()) {
-    echo json_encode(
-        array('message' => 'Quote Deleted')
-    );
+$quote->id = isset($data->id) ? $data->id : null;
+if (!empty($quote->id)) {
+    // Delete author
+    $result = $quote->delete();
+    if ($result) {
+        echo json_encode($result);
+    } else {
+        echo json_encode(
+            array('message' => 'Uh Oh')
+        );
+    }
 } else {
     echo json_encode(
-        array('message' => 'Quote Not Deleted')
+        array('message' => 'Missing Required Parameters')
     );
 }
