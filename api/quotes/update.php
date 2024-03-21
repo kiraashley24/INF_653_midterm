@@ -25,18 +25,22 @@ if (!isset($data->id) || !isset($data->quote) || !isset($data->author_id) || !is
     exit;
 }
 
-// Instantiate quote object
-$quote = new Quote($db);
-
 // Set ID to update
 $quote->id = $data->id;
 
+// Check if author_id exists
+if (!isset($data->author_id)) {
+    echo json_encode(array('message' => 'Missing author_id'));
+    exit;
+}
 
-// Set ID to update
-$quote->id = $data->id;
+// Check if category_id exists
+if (!isset($data->category_id)) {
+    echo json_encode(array('message' => 'Missing category_id'));
+    exit;
+}
 
 if (!empty($data->quote)) {
-    
     // Set quote data
     $quote->quote = $data->quote;
     $quote->author_id = $data->author_id;
@@ -56,5 +60,6 @@ if (!empty($data->quote)) {
         array('message' => 'Missing Required Parameters')
     );
 }
+
 
 ?>
