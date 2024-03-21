@@ -209,9 +209,8 @@ class Quote {
         $stmt->bindParam(':id', $this->id);
 
         if ($stmt->execute()) {
-            //$result = array('id' => $this->id);
-            //return $result;
-            return true;
+            $result = array('id' => $this->id);
+            return $result;
         }
 
         printf("Error: %s.\n", $stmt->error);
